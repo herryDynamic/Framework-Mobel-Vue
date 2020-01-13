@@ -36,13 +36,13 @@ const router = new Router({
       }
     },
     {
-      path: '/Calculator2',
-      name: 'Calculator2',
+      path: '/reply',
+      name: 'reply',
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/Calculator2.vue'),
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/reply.vue'),
       meta: {
         // keepAlive: true,
-        title: '计算器'
+        title: '编辑器'
         // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
       }
     },
@@ -50,7 +50,7 @@ const router = new Router({
       path: '/test',
       name: 'test',
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/Calculator2.vue'),
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/test.vue'),
       meta: {
         // keepAlive: true,
         title: 'test'
