@@ -30,7 +30,7 @@ import { METHODS } from 'http'
 export default {
   data() {
     return {
-      imgSrc: require('../../../images/文件.png'), // 页面显示的图片
+      imgSrc: require('../../assets/reply/file.png'), // 页面显示的图片
       imgUrl:
         'http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg' // 当前像父页面传递的假数据
     }

@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import { toast } from "../../../api/toast.js";
+import { toast } from "../../api/toast.js";
 // import {te} from '../../../images/photo.png'
-import { replyphoto } from "@/api/reply.js";
+// import { replyphoto } from "@/api/reply.js";
 
 export default {
   data() {
     return {
-      imgSrc: require("../../../images/photo.png"), // 页面显示的图片
+      imgSrc: require("../../assets/reply/photo.png"), // 页面显示的图片
       imgURL:
         "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg" // 当前像父页面传递的假数据
     };
@@ -43,28 +43,17 @@ export default {
       var vm = this;
       var formData = new FormData();
       formData.append("file", file.file);
-      console.log(formData);
-      console.log(file.file);
+      // console.log(formData);
+      // console.log(file.file);
       
 
       //上传图片
       // 需要判断是否多选图片了，多选图片不可以，或者最多同时上传几张
-      replyphoto(formData).then(res => {
-        vm.imgURL = res.data;
+      // replyphoto(formData).then(res => {
+      //   vm.imgURL = res.data;
         this.InsertImgNode();
-      });
+      // });
 
-      // replyphoto(formData).then(response => {
-      //   vm.photo1 = response.data
-      //   this.accpturl = vm.photo1
-      //   this.InsertImgNode()
-      //   // 判断是否上传多张图片，若是，则以逗号“，”来进行拼接
-      //   if (vm.photoList === '') {
-      //     vm.photoList = vm.photo1
-      //   } else {
-      //     vm.photoList = vm.photoList + ',' + vm.photo1
-      //   }
-      // })
     },
 
     // 向父组件传递当前值

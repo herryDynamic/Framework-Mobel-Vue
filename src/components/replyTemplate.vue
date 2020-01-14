@@ -44,7 +44,7 @@
           <img
             :id="'linkImg' + index"
             :alt="index"
-            src="../../images/cross.png"
+            :src="crossImg"
             class="imgLinkCross"
             @click="removeLinkNode(index)"
           >
@@ -64,7 +64,7 @@
             <van-grid-item>
               <img
                 :id="'picture' + index"
-                src="../../images/cross.png"
+                :src="crossImg"
                 class="imgPictureCross"
                 :alt="index"
                 @click="removePictureNode(index)"
@@ -104,6 +104,7 @@ export default {
 
   data() {
     return {
+      crossImg: require("../assets/reply/cross.png"),
       txtNode: this.txtNodeP, // 存储输入数据
       linkNode: this.linkNodeP,
       pictureNode: this.pictureNodeP,
@@ -111,7 +112,7 @@ export default {
       // canEditT: this.canEdit,
 
       inputImgDesc: '', // input框注释输入值
-      srcLink: require('../../images/超链接.png'), // 显示超链接图片
+      srcLink: require('../assets/reply/link.png'), // 显示超链接图片
       // 图片
       file: this.file,
 

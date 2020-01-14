@@ -7,7 +7,7 @@
  * @LastEditTime : 2020-01-02 17:54:52
  -->
 <template>
-  <div>
+  <div style="background-color: rgb(224, 233, 234)">
     <!-- 导航栏 -->
     <van-nav-bar
       class="titlecolorreply"
@@ -18,10 +18,7 @@
     <!-- 题目详情的显示 -->
     <div class="brainDetail">
       <van-dropdown-menu>
-        <van-dropdown-item
-          v-model="selectcontent"
-          :title="selectcontent"
-        >
+        <van-dropdown-item v-model="selectcontent" :title="selectcontent">
           <!-- 此处修改一下接收值即可 -->
           <answerTemplate
             :txt-node-p="brainTxtNode"
@@ -32,20 +29,6 @@
       </van-dropdown-menu>
     </div>
 
-    <div id="app">
-      <!-- style="text-align:center;" -->
-      <!-- 倒计时控件 -->
-      <van-col v-if="time !== null">
-        <van-count-down
-          v-show="showTime"
-          ref="countDown"
-          :time="time"
-          :auto-start="true"
-          style="position:relitive;margin-left:520%;"
-          @finish="finish()"
-        />
-      </van-col>
-    </div>
     <!-- 作答页面框里面的内容 -->
     <replyTemplage
       :txt-node-p="txtNode"
@@ -61,11 +44,13 @@
       <van-popup
         v-model="show"
         position="bottom"
-        :style="{ height: '100px',background:'#eeeeee'}"
+        :style="{ height: '100px', background: '#eeeeee' }"
         :overlay="false"
       >
         <!-- 弹出层:提交-->
-        <div style="text-align:center;margin-top: 0%;background-color:rgb(224, 233, 234)">
+        <div
+          style="text-align:center;margin-top: 0%;background-color:rgb(224, 233, 234)"
+        >
           <van-button
             class="van-button-danger"
             round
@@ -95,7 +80,7 @@
               :src="srcLink"
               style="margin-top:3px;margin-left:55px;"
               @click="showModelTrue()"
-            >
+            />
             <!-- 超链接内容 -->
             <hyperlinks
               :show-model="showmodel"
@@ -110,19 +95,18 @@
   </div>
 </template>
 <script>
-import { Toast } from 'vant';
-import escape from '../../api/escape.js'
-import answerTemplate from '../../components/answerTemplate' // 引入只读答题
-import replyTemplage from '../../components/replyTemplate' // 引入答题模板
-import localPicture from '../../components/reply/LocalPicture' // 引入上传图片
-import camera from '../../components/reply/Camera' // 引入相机图片
-import uploadFiles from '../../components/reply/UploadFiles' // 引入上传文件
-import hyperlinks from '../../components/reply/Hyperlinks'
-import Vue from 'vue'
-import { Icon } from 'vant'
-Vue.use(Icon)
+import { Toast } from "vant";
+import escape from "../../api/escape.js"; // 引入校验
+import answerTemplate from "../../components/answerTemplate"; // 引入只读答题
+import replyTemplage from "../../components/replyTemplate"; // 引入答题模板
+import localPicture from "../../components/reply/LocalPicture"; // 引入上传图片
+import camera from "../../components/reply/Camera"; // 引入相机图片
+import uploadFiles from "../../components/reply/UploadFiles"; // 引入上传文件
+import hyperlinks from "../../components/reply/Hyperlinks"; // 引入超链接
+import Vue from "vue";
+import { Icon } from "vant";
+Vue.use(Icon);
 export default {
-  name: 'Txtcontent',
   components: {
     answerTemplate,
     replyTemplage,
@@ -131,142 +115,160 @@ export default {
     uploadFiles,
     hyperlinks
   },
-  props: {
-    value: {
-      type: String,
-      default: ''
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    }
-  },
+
   data() {
     return {
-      // 注释文本框接受数据
-      annotationArrayList: [],
-      // 文本框接受数据
-      testArrayList: [],
       // 题目详情处的题目
-      selectcontent: this.selectcontent,
-      // 题目详情出的内容
-      brainstormContent: '',
-
-      // 一张题目图片路径
-      fileList: this.fileList,
+      // selectcontent: this.selectcontent,
+      selectcontent: "题目",
       // 题目内容
-      content: '',
-      // 风暴id
-      brainStormId: '',
+      content: "",
       // 图片
       file: this.file,
       // 用户名
       // name: storage.get('UserInfo').userName,
-      // 上传图片List，包括多张上传图片的路径
-      photoList: '',
+
       // 题目详情展示
       showphoto: false,
-      // 题目图片列表
-      ThemePhotoList: [],
-      // 作答要上传的图片
-      photo1: '',
-      showphoto1: false,
-      // 活动名称
-      activeNames: ['1'],
-      // 作答图片回显列表
-      imgList: '',
-      // 倒计时10秒
-      countDown: 1 * 60 * 1000,
-      // 倒计时控件显示与否（默认显示）
-      showTime: true,
-      // 倒计时绑定的时间
-      time: null,
+
       // 弹出框是否显示
       show: true,
-      // 按钮隐藏
-      showbutton: false,
-      // 折叠层显示情况
-      showcontent: false,
+
       // 超链接框的显示情况
       showmodel: false,
-      // 接受url
-      accpturl: '',
-      // div输入框
-      innerText: this.vue,
-      isLocked: false,
+
       // 超链接文本
-      hyperlinktext: '',
+      hyperlinktext: "",
       // 超链接地址
-      hyperlinkaddress: '',
-      // 超链接显示
-      showhref: false,
-      // 超链接文本框显示内容
-      contenttxt: '',
-      // 定义数组，用于接收：图片描述
-      imgNode: [],
+      hyperlinkaddress: "",
+
       // 地址
-      address: '',
+      address: "",
       // 超链接数组
       list: [],
-      // 大文本框的作答内容
-      divtext: '',
-      // 注释框的内容
-      descValue: '',
-      // ===================guoqian
-      srcLink: require('../../images/超链接.png'), // 显示超链接图片
 
-      linkIndex: '', // 临时存储当前linkId--修改使用
+      // ===================guoqian
+      srcLink: require("../../assets/reply/link.png"), // 显示超链接图片
+
+      linkIndex: "", // 临时存储当前linkId--修改使用
       // 头脑风暴详情的内容接收
-      brainTxtNode: '这里传入数据即可', // 头脑风暴详情的文本数据
+      brainTxtNode: "这里传入数据即可", // 头脑风暴详情的文本数据
       brainPictureNode: [], // 头脑风暴详情的存储图片数据
       brainLinkNode: [], // 头脑风暴详情的存储超链接
       // 回答的内容接收
-      txtNode: '', // 存储输入数据
+      txtNode: "", // 存储输入数据
       pictureNode: [], // 存储图片数据
       linkNode: [], // 存储超链接
       // allNode: [], // 存储所有内容
-      allNode: '' // 向后端存储，存储所有内容
-    }
+      allNode: "" // 向后端存储，存储所有内容
+    };
   },
   watch: {},
   // 页面加载数据
   mounted() {
-    this.receiveData()
+    this.receiveData();
+    this.titleContentData(); // 加载题目内容
   },
   methods: {
-    // 接收数据方法
+    // 编辑器接收数据方法
     receiveData() {
-      // 发送后端请求存储数据库
-      // const brainstormId = localStorage.getItem("brainstormId");
-      console.log(brainstormId)
-     
+      this.txtNode =
+        "六、懂得让步的人是聪明的，在感情对抗中，赢了面子就输了情分，往往死撑到底的人，都成孤家寡人。其实，弯腰不是认输，只是为了拾起丢掉的幸福。七、我宁愿坦然的、不完美的过一辈子，也不要一辈子都假装自己很完美。不羡慕繁华，不刻意雕琢，你若总是看到比自己优秀的人，那就说明你正在走上坡路；若总是看到和自己差不多的人，说明你差不多在混日子。与其去埋怨这世界，不如改变自己。做好自己的事，那就是比什么都强的。";
+      this.linkNode = [
+        {
+          linkText: "我是link1",
+          linkURL: "https://www.cnblogs.com/qinqiu/p/5088241.html"
+        },
+        {
+          linkText: "我是link2",
+          linkURL: "https://youzan.github.io/vant/#/zh-CN/grid"
+        }
+      ];
+      this.pictureNode = [
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片一"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片二"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片三"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片四"
+        }
+      ];
+    },
+
+    // 加载题目内容
+    titleContentData() {
+      this.brainTxtNode = "请加载";
+      this.brainLinkNode = [
+        {
+          linkText: "我是link1",
+          linkURL: "https://www.cnblogs.com/qinqiu/p/5088241.html"
+        },
+        {
+          linkText: "我是link2",
+          linkURL: "https://youzan.github.io/vant/#/zh-CN/grid"
+        }
+      ];
+      this.brainPictureNode = [
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片一"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片二"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片三"
+        },
+        {
+          imgURL:
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+          imgDesc: "我是图片四"
+        }
+      ];
     },
 
     // 返回上一级
     btnback() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
 
     // 提交作答内容
     btnCreat() {
-      this.txtNode = escape.htmlEncode(this.txtNode) // 存库前转义字符
-
+      this.txtNode = escape.htmlEncode(this.txtNode); // 存库前转义字符
     },
 
     // 超链接弹出框显示
     showModelTrue() {
-      this.showmodel = true // 显示书写超链接弹出框
+      this.showmodel = true; // 显示书写超链接弹出框
     },
 
     // ---------------------文本框数据同步---------
     listenToChildTxt(txt) {
-      this.txtNode = txt
+      this.txtNode = txt;
     },
     listenToChildLink(link) {
-      this.linkNode = link
+      this.linkNode = link;
     },
     listenToChildPicture(picture) {
-      this.pictureNode = picture
+      this.pictureNode = picture;
     },
     // ---------------------文本框数据同步---------
 
@@ -274,44 +276,44 @@ export default {
     receiveLocalPicture(imgUrl) {
       this.pictureNode.push({
         imgURL: imgUrl, // 接收图片子页面图片数据
-        imgDesc: ''
-      })
+        imgDesc: ""
+      });
     },
 
     // 接收照相机
     receiveCamera(imgUrl) {
       this.pictureNode.push({
         imgURL: imgUrl, // 接收照相机子页面图片数据
-        imgDesc: ''
-      })
+        imgDesc: ""
+      });
     },
 
     // 接收文件
     receiveUploadFiles(imgUrl) {
       this.pictureNode.push({
         imgURL: imgUrl, // 接收文本子页面图片数据
-        imgDesc: ''
-      })
+        imgDesc: ""
+      });
     },
 
     // 接收父组件传递的超链接和地址，如果没有则不显示，有值则显示
     receiveHyperlinks(showmodel, hyperlinktext, hyperlinkaddress) {
-      const vm = this
-      this.showmodel = showmodel
-      this.hyperlinktext = hyperlinktext
-      this.hyperlinkaddress = hyperlinkaddress
+      const vm = this;
+      this.showmodel = showmodel;
+      this.hyperlinktext = hyperlinktext;
+      this.hyperlinkaddress = hyperlinkaddress;
 
       if (hyperlinktext !== undefined && hyperlinkaddress !== undefined) {
-        if (vm.linkIndex !== '') {
-          vm.linkNode[vm.linkIndex].linkText = vm.hyperlinktext // 存入已有的超链接文本
-          vm.linkNode[vm.linkIndex].linkURL = vm.hyperlinkaddress // 存入已有的超链接文本
+        if (vm.linkIndex !== "") {
+          vm.linkNode[vm.linkIndex].linkText = vm.hyperlinktext; // 存入已有的超链接文本
+          vm.linkNode[vm.linkIndex].linkURL = vm.hyperlinkaddress; // 存入已有的超链接文本
 
-          vm.linkIndex = '' // 将当前的需要更改的id保存下来方便修改，使用完清空
+          vm.linkIndex = ""; // 将当前的需要更改的id保存下来方便修改，使用完清空
         } else {
           this.linkNode.push({
             linkText: vm.hyperlinktext, // 点击下面图片按钮存入新的超链接内容
             linkURL: vm.hyperlinkaddress // 点击下面图片按钮存入新的超链接地址
-          })
+          });
         }
       }
     },
@@ -323,15 +325,13 @@ export default {
       tempLinkTextT,
       tempLinkURLT
     ) {
-      this.showmodel = tempShowModel // 显示书写超链接弹出框
-      this.linkIndex = tempIndex // 将当前的需要更改的id保存下来方便修改
-      this.hyperlinktext = tempLinkTextT // 将当前连接抬头传递给子组件
-      this.hyperlinkaddress = tempLinkURLT // 将当前连接地址传递给子组件
-    },
-
-
+      this.showmodel = tempShowModel; // 显示书写超链接弹出框
+      this.linkIndex = tempIndex; // 将当前的需要更改的id保存下来方便修改
+      this.hyperlinktext = tempLinkTextT; // 将当前连接抬头传递给子组件
+      this.hyperlinkaddress = tempLinkURLT; // 将当前连接地址传递给子组件
+    }
   }
-}
+};
 </script>
 <style scoped>
 /* 题目详情 */
@@ -344,8 +344,7 @@ export default {
   font-size: 16px;
   font-style: left;
   width: 92%;
-  padding:3px;
-
+  padding: 3px;
 }
 
 /* 照相机大小 */

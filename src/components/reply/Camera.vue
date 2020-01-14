@@ -22,15 +22,15 @@
 </template>
 
 <script>
-import { toast } from "../../../api/toast.js";
-import { replyphoto } from "@/api/reply.js";
+import { toast } from "../../api/toast.js";
+// import { replyphoto } from "@/api/reply.js";
 export default {
   props: {
     urlLocalPicture: { default: "" } // 传递当前上传的图片
   },
   data() {
     return {
-      imgSrc: require("../../../images/camera.png"),
+      imgSrc: require("../../assets/reply/camera.png"),
       imgURL:
         "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg"
     };
@@ -43,10 +43,10 @@ export default {
       formData.append("file", file.file);
 
       //上传图片方法
-      replyphoto(formData).then(response => {
-        vm.imgURL = response.data;
+      // replyphoto(formData).then(response => {
+      //   vm.imgURL = response.data;
         this.InsertImgNode();
-      });
+      // });
     },
 
     // 向父组件传递当前值
