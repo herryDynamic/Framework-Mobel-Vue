@@ -1,10 +1,19 @@
+/*
+ * @Description:转义字符
+ * @Version: 1.0
+ * @Author: 白爱民
+ * @Date: 2020年1月19日20:49:21
+ * @LastEditors:白爱民
+ * @LastEditTime: 2020年1月19日20:49:28
+ */
 
 export default {
     /**
        *  把html转义成HTML实体字符
        * @param str
        * @returns {string}
-       * @constructor
+       * @constructor herry
+       * @Instructions 首先在使用页面引入，然后直接使用引入的名字直接点方法名即可：escape.htmlEncode
        */
     htmlEncode: function(str) {
       var s = ''
@@ -23,7 +32,8 @@ export default {
        *  转义字符还原成html字符
        * @param str
        * @returns {string}
-       * @constructor
+       * @constructor herry
+       * @Instructions 首先在使用页面引入，然后直接使用引入的名字直接点方法名即可：escape.htmlRestore
        */
     htmlRestore: function(str) {
       var s = ''
