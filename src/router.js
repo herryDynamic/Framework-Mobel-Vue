@@ -6,6 +6,28 @@ const router = new Router({
   base: '/DynamicCommonUI-Vue-MobilePart',
   routes: [
     {
+      path: '/',
+      name: 'login',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/Authority/login.vue'),
+      meta: {
+        // keepAlive: true,
+        title: '登陆'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
+    },
+    {
+      path: '/home',
+      name: 'home',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/Authority/home.vue'),
+      meta: {
+        // keepAlive: true,
+        title: 'herryHome'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
+    },
+    {
       path: '/studyWords-setting',
       name: 'studyWords-setting',
       component: () => import(/* webpackChunkName: "about" */ '../src/views/mine/studyWords-setting.vue'),
@@ -56,7 +78,19 @@ const router = new Router({
         title: 'test'
         // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
       }
+    },
+    {
+      path: '/resumeDatabase',
+      name: 'resumeDatabase',
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/resumeDatabase.vue'),
+      meta: {
+        // keepAlive: true,
+        title: 'resumeDatabase'
+        // requireAuth: true // 当有这个字段的时候,我们就认为这个路由页面是要有登录权限的
+      }
     }
+    
   ]
 })
 
