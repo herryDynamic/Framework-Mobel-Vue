@@ -13,11 +13,11 @@
     <div class="intermediate">
       <div class="userNameClass intermediatePublic">
         <img :src="telPicture" class="telImg">
-        <input v-model="userValue" maxlength="20" placeholder="请输入用户名" type="text" />
+        <input v-model="userValue" maxlength="11" placeholder="请输入用户名" type="text" />
       </div>
       <div class="possWords intermediatePublic">
         <img :src="passPicture" class="passImg">
-        <input v-model="passValue" maxlength="20" placeholder="请输入密码" type="text" />
+        <input v-model="passValue" maxlength="20" placeholder="请输入密码" type="password" />
       </div>
       <div class="loginButton intermediatePublic" @click="login">
         <p style="margin-top:5%">登陆</p>

@@ -1,5 +1,5 @@
 <!--
-*@描述:计算器
+*@描述:test
 *@版本:V1.0
 *@作者:白爱民
 *@Date:2019年12月11日20:16:26
@@ -8,7 +8,9 @@
 *@说明：-->
 <template>
   <div>
-    <van-search></van-search>
+    <van-field readonly clickable :value="value" @touchstart.native.stop="show = true" />
+
+    <van-number-keyboard v-model="value" :show="show" :maxlength="6" @blur="show = false" />
   </div>
 </template>
 <style scoped>
@@ -17,17 +19,17 @@
 export default {
   data() {
     return {
-      searchMessage:"",
+      show: false,
+      value: ""
     };
   },
   mounted() {},
   methods: {
-    newitems(){
-      var searchArr=[];
-      if(this.searchMessage === ""){
-
-      }
-    }
+    // newitems() {
+    //   var searchArr = [];
+    //   if (this.searchMessage === "") {
+    //   }
+    // }
   }
 };
 </script>
