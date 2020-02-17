@@ -74,6 +74,12 @@ export default {
 
     // 解析当前拿到的值
     parsing (index) {
+      // 暂时不能用，因为用调用方法等，可以暂时写进去，之后再判断数组中这数是啥
+      // const math = ['+','-','*','/','1','2','3','X','4','5','6','']
+      // const num = index;
+      // this.calculator = math[index]
+
+
       switch (index) {
         case 4:
           this.calculator = '1'
