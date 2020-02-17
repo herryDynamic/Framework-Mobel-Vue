@@ -47,7 +47,7 @@ const router = new Router({
       }
     },
     {
-      path: '/',
+      path: '/valculator',
       name: 'valculator',
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '../src/views/herry-project/valculator.vue'),
